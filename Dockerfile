@@ -1,6 +1,6 @@
 FROM nginx:latest 
 MAINTAINER mavrick202@gmail.com 
-RUN yum install -y curl
+RUN apt install -y curl
 COPY index.html /usr/share/nginx/html/
 COPY scorekeeper.js /usr/share/nginx/html/
 COPY style.css /usr/share/nginx/html/
