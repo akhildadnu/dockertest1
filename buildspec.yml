@@ -10,6 +10,7 @@ phases:
       - docker build -t ecs .
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 477368140520.dkr.ecr.us-east-1.amazonaws.com
       - docker tag ecs:latest 477368140520.dkr.ecr.us-east-1.amazonaws.com/ecs:latest
+      - docker images
       - docker push 477368140520.dkr.ecr.us-east-1.amazonaws.com/ecs:latest
       - aws ecs register-task-definition --family ecs --region $AWS_DEFAULT_REGION --cli-input-json file:///dockertest1/task-definition1.json
       - TASK_REVISION=$(aws ecs describe-task-definition --task-definition latest --region $AWS_DEFAULT_REGION | jq -r '.[] | .revision')
