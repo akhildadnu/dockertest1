@@ -1,20 +1,125 @@
 version: 0.2
 phases:
-  build:
+  prebuild:
     commands:
       - AWS_DEFAULT_REGION="us-east-1"
       - echo "Login in to Amazon ECR..."
       - aws --version
-      - git clone https://github.com/akhildadnu/dockertest1.git
-      - cd dockertest1
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 477368140520.dkr.ecr.us-east-1.amazonaws.com
+      - IMAGE_URL=477368140520.dkr.ecr.us-east-1.amazonaws.com/ecs:latest
+  build:
+    commands:
+      - echo Build state started
+      - echo Building Docker image
+      - cd /dockertest1
       - docker build -t ecs .
-      - docker tag ecs:latest 477368140520.dkr.ecr.us-east-1.amazonaws.com/ecs:latest
-      - docker push 477368140520.dkr.ecr.us-east-1.amazonaws.com/ecs:latest
+      - docker tag ecs:latest $IMAGE_URL
+  postbuild:
+    commands:
+      - echo Build completed
+      - echo pushing Docker image to ECR
+      - docker push $IMAGE_URL
       - aws ecs register-task-definition --family ecs --region $AWS_DEFAULT_REGION --cli-input-json file:///dockertest1/task-definition1.json
       - TASK_REVISION=$(aws ecs describe-task-definition --task-definition latest --region $AWS_DEFAULT_REGION | jq -r '.[] | .revision')
       - echo $TASK_REVISION
       - aws ecs update-service --cluster ecs-test --service ecs --region $AWS_DEFAULT_REGION --task-definition "latest:${TASK_REVISION}"
 
-
+       
       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     version: 0.2
+phases:
+  prebuild:
+    commands:
+      - AWS_DEFAULT_REGION="us-east-1"
+      - echo "Login in to Amazon ECR..."
+      - aws --version
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 477368140520.dkr.ecr.us-east-1.amazonaws.com
+      - IMAGE_URL=477368140520.dkr.ecr.us-east-1.amazonaws.com/ecs:latest
+  build:
+    commands:
+      - echo Build state started
+      - echo Building Docker image
+      - cd /dockertest1
+      - docker build -t ecs .
+      - docker tag ecs:latest $IMAGE_URL
+  postbuild:
+    commands:
+      - echo Build completed
+      - echo pushing Docker image to ECR
+      - docker push $IMAGE_URL
+      - aws ecs register-task-definition --family ecs --region $AWS_DEFAULT_REGION --cli-input-json file:///dockertest1/task-definition1.json
+      - TASK_REVISION=$(aws ecs describe-task-definition --task-definition latest --region $AWS_DEFAULT_REGION | jq -r '.[] | .revision')
+      - echo $TASK_REVISION
+      - aws ecs update-service --cluster ecs-test --service ecs --region $AWS_DEFAULT_REGION --task-definition "latest:${TASK_REVISION}"
+
+       
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
