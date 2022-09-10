@@ -9,7 +9,7 @@ phases:
       - IMAGE_URL=477368140520.dkr.ecr.us-east-1.amazonaws.com/ecs:latest
       - echo Build state started
       - echo Building Docker image
-      - cd /dockertest1
+      - cd dockertest1
       - docker build -t ecs .
       - docker tag ecs:latest $IMAGE_URL
       - echo Build completed
