@@ -18,6 +18,7 @@ phases:
       - aws ecs register-task-definition --family ecs --region $AWS_DEFAULT_REGION --cli-input-json file:///dockertest1/task-definition1.json
       - TASK_REVISION=$(aws ecs describe-task-definition --task-definition latest --region $AWS_DEFAULT_REGION | jq -r '.[] | .revision')
       - echo $TASK_REVISION
+<<<<<<< HEAD
       - aws ecs update-service --cluster ecs-test --service ecs --region $AWS_DEFAULT_REGION --task-definition "latest:${TASK_REVISION}"
    
     
@@ -75,3 +76,6 @@ phases:
 
 
      
+=======
+      - aws ecs update-service --cluster ecs-test --service ecs --region $AWS_DEFAULT_REGION --task-definition "latest:${TASK_REVISION}"       
+>>>>>>> a5e598a5cd249da5ddab0790e89ad38e2599f048
