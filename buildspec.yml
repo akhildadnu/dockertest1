@@ -4,7 +4,6 @@ phases:
     commands:
       - AWS_DEFAULT_REGION="us-east-1"
       - echo "Login in to Amazon ECR..."
-      - sudo docker --version
       - aws --version
       - curl https://get.docker.com/ | bash
       - docker --version
