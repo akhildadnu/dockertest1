@@ -13,6 +13,7 @@ phases:
       - docker tag test:latest 477368140520.dkr.ecr.us-east-1.amazonaws.com/test:latest
       - docker push 477368140520.dkr.ecr.us-east-1.amazonaws.com/test:latest
       - readlink -f dockertest1
+      - cd /codebuild/output/src388247425/src/dockertest1/dockertest1 && ls 
       - aws ecs register-task-definition --family ecs --region $AWS_DEFAULT_REGION --cli-input-json file:///codebuild/output/src939661664/src/dockertest1/task-definition1.json
       - TASK_REVISION=$(aws ecs describe-task-definition --task-definition ecs --region $AWS_DEFAULT_REGION | jq -r '.[] | .revision')
       - echo $TASK_REVISION
