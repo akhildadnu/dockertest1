@@ -5,7 +5,6 @@ phases:
       - AWS_DEFAULT_REGION="us-east-1"
       - echo "Login in to Amazon ECR..."
       - aws --version
-      - cd dockertest1
       - docker build -t test .
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 477368140520.dkr.ecr.us-east-1.amazonaws.com
       - docker tag test:latest 477368140520.dkr.ecr.us-east-1.amazonaws.com/test:latest
