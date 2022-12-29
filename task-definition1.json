@@ -1,34 +1,64 @@
 {
-    "requiresCompatibilities": [
+  "requiresCompatibilities": [
       "FARGATE"
-    ],
-    "containerDefinitions": [
+  ],
+  "containerDefinitions": [
       {
-        "name": "test",
-        "image": "477368140520.dkr.ecr.us-east-1.amazonaws.com/test:latest",
-        "cpu": 0,
-        "links": [],
-        "portMappings": [
-          {
-            "protocol": "tcp",
-            "containerPort": 80
+          "name": "reddogcontainer",
+          "image": "testimage",
+          "resourceRequirements": null,
+          "essential": true,
+          "portMappings": [
+              {
+                  "containerPort": "5000",
+                  "protocol": "tcp"
+              }
+          ],
+          "entryPoint": [],
+          "command": [],
+          "environment": [
+              {
+                "name": "ALTGAME_AGPAY_TRANSACTION_UPDATE_CONSUMER_GROUP_ID",
+                "value": "$ALTGAME_AGPAY_TRANSACTION_UPDATE_CONSUMER_GROUP_ID"
+              },
+              {
+                "name": "ALTGAME_AGPAY_TRANSACTION_UPDATE_TOPIC",
+                "value": "$ALTGAME_AGPAY_TRANSACTION_UPDATE_TOPIC"
+              }          
+          ],
+          "environmentFiles": [],
+          "secrets": null,
+          "mountPoints": null,
+          "volumesFrom": null,
+          "hostname": null,
+          "user": null,
+          "workingDirectory": null,
+          "extraHosts": null,
+          "logConfiguration": {
+              "logDriver": "awslogs",
+              "options": {
+                  "awslogs-group": "/ecs/reddogcontainer",
+                  "awslogs-region": "eu-west-2",
+                  "awslogs-stream-prefix": "ecs"
+              }
+          },
+          "ulimits": null,
+          "dockerLabels": null,
+          "dependsOn": null,
+          "repositoryCredentials": {
+              "credentialsParameter": ""
           }
-        ],
-        "logConfiguration": {
-          "logDriver": "awslogs",
-          "options": {
-            "awslogs-group": "/ecs/latest",
-            "awslogs-region": "us-east-1",
-            "awslogs-stream-prefix": "ecs"
-          }
-        }
       }
-    ],
-    "networkMode": "awsvpc",
-    "memory": "512",
-    "cpu": "256",
-    "executionRoleArn": "arn:aws:iam::477368140520:role/ecs-task-execution-role",
-    "family": "latest",
-    "taskRoleArn": "arn:aws:iam::477368140520:role/ecs-task-execution-role"
-  }
-  
+  ],
+  "volumes": [],
+  "networkMode": "awsvpc",
+  "memory": "512",
+  "cpu": "256",
+  "executionRoleArn": "arn:aws:iam::212458924932:role/ecsTaskExecutionRole",
+  "family": "reddogcontainer",
+  "taskRoleArn": "arn:aws:iam::212458924932:role/ecsTaskExecutionRole",
+  "runtimePlatform": {
+      "operatingSystemFamily": "LINUX"
+  },
+  "tags": []
+}
