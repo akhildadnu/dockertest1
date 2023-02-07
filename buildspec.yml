@@ -31,4 +31,5 @@ phases:
     runtime-versions:
       nodejs: 16
     commands:
-      - source dockertest1/deploy.sh && npm_install
+      - source dockertest1/deploy.sh 
+      - npm_install
